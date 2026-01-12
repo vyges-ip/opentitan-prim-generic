@@ -3,8 +3,8 @@ upstream:
   type: "monorepo"
   source: https://github.com/lowRISC/opentitan
   path: hw/ip/prim_generic
-  commit: 05ff44dc980ee5ee61702d9c866af2a2649533e1
-  extracted_at: "2026-01-05T02:27:40Z"
+  commit: 8eebabada21bebf8df635c1b60e31bc12e13c4a2
+  extracted_at: "2026-01-12T02:23:49Z"
 import:
   rtl:
     - path: "rtl"
