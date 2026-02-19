@@ -5,6 +5,37 @@
   "source": {
     "type": "git",
     "url": "https://github.com/lowRISC/opentitan",
-    "commit": "304378684dfcf5be73bbd14faffa71790793d8c6"
-  }
+    "commit": "304378684dfcf5be73bbd14faffa71790793d8c6",
+    "rtl_path": "rtl",
+    "rtl_files": [
+      "rtl/prim_and2.sv",
+      "rtl/prim_buf.sv",
+      "rtl/prim_clock_buf.sv",
+      "rtl/prim_clock_div.sv",
+      "rtl/prim_clock_gating.sv",
+      "rtl/prim_clock_inv.sv",
+      "rtl/prim_clock_mux2.sv",
+      "rtl/prim_flash.sv",
+      "rtl/prim_flop.sv",
+      "rtl/prim_flop_2sync.sv",
+      "rtl/prim_flop_en.sv",
+      "rtl/prim_flop_no_rst.sv",
+      "rtl/prim_generic_flash_bank.sv",
+      "rtl/prim_pad_attr.sv",
+      "rtl/prim_pad_wrapper.sv",
+      "rtl/prim_pkg.sv",
+      "rtl/prim_ram_1p.sv",
+      "rtl/prim_ram_1p_pkg.sv",
+      "rtl/prim_ram_1r1w.sv",
+      "rtl/prim_ram_2p.sv",
+      "rtl/prim_ram_2p_pkg.sv",
+      "rtl/prim_rom.sv",
+      "rtl/prim_rom_pkg.sv",
+      "rtl/prim_rst_sync.sv",
+      "rtl/prim_usb_diff_rx.sv",
+      "rtl/prim_xnor2.sv",
+      "rtl/prim_xor2.sv"
+    ]
+  },
+  "updated": "2026-02-19T06:03:45Z"
 }
