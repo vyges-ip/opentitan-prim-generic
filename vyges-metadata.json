@@ -62,17 +62,12 @@
       "description": "TL-UL host interface for register access"
     }
   ],
-  "categories": {
-    "primary": "primitives",
-    "secondary": [
-      "generic"
-    ],
-    "tags": [
-      "generic",
-      "opentitan",
-      "lowrisc-opentitan"
-    ]
-  },
+  "categories": [
+    {
+      "main_category": "Base Libraries",
+      "sub_category": "generic"
+    }
+  ],
   "community": {
     "issues": "https://github.com/vyges-ip/opentitan-prim-generic/issues",
     "contributions": "https://github.com/vyges-ip/opentitan-prim-generic/pulls"
@@ -82,5 +77,23 @@
     "logo": "https://vyges.com/assets/logo.svg",
     "website": "https://github.com/vyges-ip/opentitan-prim-generic",
     "usage": "Use of the logo is permitted for attribution or compatibility references only."
+  },
+  "keywords": [
+    "generic",
+    "opentitan",
+    "lowrisc-opentitan"
+  ],
+  "asic": {
+    "flavor": "digital",
+    "pdks": [
+      "sky130A"
+    ],
+    "synthesis_tool": "yosys"
+  },
+  "fpga": {
+    "toolchain": "yosys"
+  },
+  "automation": {
+    "automation_level": "basic"
   }
 }
