@@ -14,7 +14,7 @@
     "digital"
   ],
   "created": "2026-03-27T23:05:47Z",
-  "updated": "2026-03-27T23:05:47Z",
+  "updated": "2026-04-02T03:11:53Z",
   "source": {
     "type": "git",
     "url": "https://github.com/lowRISC/opentitan",
@@ -196,12 +196,15 @@
   "artifacts": {
     "total_rtl_lines": 1836
   },
-  "categories": [
-    {
-      "main_category": "Memory Subsystems",
-      "sub_category": "Flash Interfaces"
-    }
-  ],
+  "categories": {
+    "primary": "Base Libraries",
+    "secondary": [
+      {
+        "main_category": "Memory Subsystems",
+        "sub_category": "Flash Interfaces"
+      }
+    ]
+  },
   "keywords": [
     "OpenTitan",
     "flash",
@@ -229,5 +232,49 @@
   },
   "branding": {
     "display_name": "Generic Primitives"
-  }
+  },
+  "rtl_files": [
+    "rtl/prim_and2.sv",
+    "rtl/prim_buf.sv",
+    "rtl/prim_clock_buf.sv",
+    "rtl/prim_clock_div.sv",
+    "rtl/prim_clock_gating.sv",
+    "rtl/prim_clock_inv.sv",
+    "rtl/prim_clock_mux2.sv",
+    "rtl/prim_const.sv",
+    "rtl/prim_const_sec.sv",
+    "rtl/prim_flash.sv",
+    "rtl/prim_flop.sv",
+    "rtl/prim_flop_2sync.sv",
+    "rtl/prim_flop_en.sv",
+    "rtl/prim_flop_no_rst.sv",
+    "rtl/prim_generic_flash_bank.sv",
+    "rtl/prim_pad_attr.sv",
+    "rtl/prim_pad_wrapper.sv",
+    "rtl/prim_pkg.sv",
+    "rtl/prim_ram_1p.sv",
+    "rtl/prim_ram_1p_pkg.sv",
+    "rtl/prim_ram_1r1w.sv",
+    "rtl/prim_ram_2p.sv",
+    "rtl/prim_ram_2p_pkg.sv",
+    "rtl/prim_rom.sv",
+    "rtl/prim_rom_pkg.sv",
+    "rtl/prim_rst_sync.sv",
+    "rtl/prim_usb_diff_rx.sv",
+    "rtl/prim_xnor2.sv",
+    "rtl/prim_xor2.sv"
+  ],
+  "rtl_quality": {
+    "module_prefixed": true,
+    "defines_prefixed": true,
+    "header_guards": false,
+    "one_module_per_file": true,
+    "self_contained_includes": false,
+    "no_translate_pragmas": true,
+    "lint_clean": false,
+    "no_casex": true,
+    "width_clean": false,
+    "no_sv_keyword_conflicts": true
+  },
+  "defines": []
 }
