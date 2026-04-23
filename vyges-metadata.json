@@ -3,7 +3,7 @@
   "x-version": "1.0.0",
   "name": "opentitan-prim-generic",
   "version": "0.1.0",
-  "description": "A collection of generic primitive modules for implementing hardware components such as flash banks, RAMs, ROMs, and clocking elements. Designed for use in the OpenTitan silicon Root of Trust project.",
+  "description": "A collection of generic primitives for OpenTitan, including flash bank emulation, RAM, ROM, and clock-related modules.",
   "license": "Apache-2.0",
   "maturity": "production",
   "target": [
@@ -13,12 +13,12 @@
   "design_type": [
     "digital"
   ],
-  "created": "2026-04-19T06:12:34Z",
-  "updated": "2026-04-19T06:12:34Z",
+  "created": "2026-04-23T20:10:45Z",
+  "updated": "2026-04-23T20:10:45Z",
   "source": {
     "type": "git",
     "url": "https://github.com/lowRISC/opentitan",
-    "commit": "46cc36599f56f60b344afb031185a85fc8654e68",
+    "commit": "5b8f6746131e231116e685585432b70359d2c727",
     "ip_path": "hw/ip/prim_generic",
     "private": false,
     "containsEncryptedPayload": false,
@@ -39,15 +39,39 @@
       "protocol": "generic",
       "port": "clk_i",
       "width": 1,
-      "description": "Clock input signal"
+      "description": "Clock input signal."
     },
     {
       "type": "reset",
       "direction": "input",
-      "protocol": "active-low",
+      "protocol": "generic",
       "port": "rst_ni",
       "width": 1,
-      "description": "Active-low reset signal"
+      "description": "Active-low reset input signal."
+    },
+    {
+      "type": "bus",
+      "direction": "input",
+      "protocol": "generic",
+      "port": "addr_i",
+      "width": 17,
+      "description": "Address input for flash memory operations."
+    },
+    {
+      "type": "bus",
+      "direction": "input",
+      "protocol": "generic",
+      "port": "prog_data_i",
+      "width": 32,
+      "description": "Data input for programming flash memory."
+    },
+    {
+      "type": "bus",
+      "direction": "output",
+      "protocol": "generic",
+      "port": "rd_data_o",
+      "width": 32,
+      "description": "Data output for flash memory read operations."
     },
     {
       "type": "control",
@@ -55,7 +79,7 @@
       "protocol": "generic",
       "port": "rd_i",
       "width": 1,
-      "description": "Read enable signal"
+      "description": "Read enable signal."
     },
     {
       "type": "control",
@@ -63,71 +87,7 @@
       "protocol": "generic",
       "port": "prog_i",
       "width": 1,
-      "description": "Program enable signal"
-    },
-    {
-      "type": "control",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "prog_last_i",
-      "width": 1,
-      "description": "Indicates the last program operation"
-    },
-    {
-      "type": "control",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "pg_erase_i",
-      "width": 1,
-      "description": "Page erase enable signal"
-    },
-    {
-      "type": "control",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "bk_erase_i",
-      "width": 1,
-      "description": "Bank erase enable signal"
-    },
-    {
-      "type": "control",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "erase_suspend_req_i",
-      "width": 1,
-      "description": "Erase suspend request signal"
-    },
-    {
-      "type": "control",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "he_i",
-      "width": 1,
-      "description": "High endurance mode enable signal"
-    },
-    {
-      "type": "address",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "addr_i",
-      "width": "AddrW",
-      "description": "Address input for memory operations"
-    },
-    {
-      "type": "data",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "prog_data_i",
-      "width": "DataWidth",
-      "description": "Data input for programming operations"
-    },
-    {
-      "type": "data",
-      "direction": "output",
-      "protocol": "generic",
-      "port": "rd_data_o",
-      "width": "DataWidth",
-      "description": "Data output for read operations"
+      "description": "Program enable signal."
     },
     {
       "type": "control",
@@ -135,7 +95,7 @@
       "protocol": "generic",
       "port": "ack_o",
       "width": 1,
-      "description": "Acknowledgment signal for operations"
+      "description": "Acknowledgment signal for operations."
     },
     {
       "type": "control",
@@ -143,39 +103,7 @@
       "protocol": "generic",
       "port": "done_o",
       "width": 1,
-      "description": "Operation completion signal"
-    },
-    {
-      "type": "control",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "init_i",
-      "width": 1,
-      "description": "Initialization signal"
-    },
-    {
-      "type": "control",
-      "direction": "output",
-      "protocol": "generic",
-      "port": "init_busy_o",
-      "width": 1,
-      "description": "Initialization busy signal"
-    },
-    {
-      "type": "power",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "flash_power_ready_h_i",
-      "width": 1,
-      "description": "Flash power ready signal"
-    },
-    {
-      "type": "power",
-      "direction": "input",
-      "protocol": "generic",
-      "port": "flash_power_down_h_i",
-      "width": 1,
-      "description": "Flash power down signal"
+      "description": "Completion signal for operations."
     }
   ],
   "parameters": [
@@ -183,51 +111,47 @@
       "name": "InfosPerBank",
       "type": "int",
       "default": 1,
-      "description": "Number of info pages per bank"
+      "description": "Number of info pages per bank."
     },
     {
       "name": "InfoTypes",
       "type": "int",
       "default": 1,
-      "description": "Number of different info types"
+      "description": "Number of different info types."
     },
     {
       "name": "InfoTypesWidth",
       "type": "int",
       "default": 1,
-      "description": "Width of info type selection"
+      "description": "Width of info type selection."
     },
     {
       "name": "PagesPerBank",
       "type": "int",
       "default": 256,
-      "description": "Number of data pages per bank"
+      "description": "Number of data pages per bank."
     },
     {
       "name": "WordsPerPage",
       "type": "int",
       "default": 256,
-      "description": "Number of words per page"
+      "description": "Number of words per page."
     },
     {
       "name": "DataWidth",
       "type": "int",
       "default": 32,
-      "description": "Width of each data word"
+      "description": "Width of data words in bits."
     }
   ],
-  "performance": {
-    "read_latency": 1,
-    "program_latency": 50,
-    "erase_latency": 200
-  },
+  "performance": {},
   "architecture": {
-    "type": "memory",
+    "type": "peripheral",
     "features": [
-      "Generic flash bank emulation",
-      "Support for read, program, and erase operations",
-      "Configurable parameters for memory size and word width",
-      "Support for high endurance mode"
+      "Flash bank emulation",
+      "RAM and ROM primitives",
+      "Clock gating and buffering",
+      "FIFO-based command handling"
     ]
   },
   "asic": {
@@ -248,7 +172,12 @@
     {
       "name": "flash_ctrl_top_specific_pkg",
       "type": "library",
-      "description": "Package defining flash control-specific types and parameters"
+      "description": "Package defining flash control-specific types."
+    },
+    {
+      "name": "prim_fifo_sync",
+      "type": "core",
+      "description": "Synchronous FIFO for command handling."
     }
   ],
   "test": {
@@ -269,11 +198,12 @@
     }
   ],
   "keywords": [
-    "flash",
-    "memory",
     "OpenTitan",
-    "generic",
-    "RTL"
+    "flash",
+    "RAM",
+    "ROM",
+    "clock",
+    "FIFO"
   ],
   "trust": {
     "verification_level": "silicon_proven",
@@ -281,30 +211,16 @@
     "fpga_validated": false,
     "formal_verified": false,
     "maintained": true,
-    "last_activity": "2026-04-19"
+    "last_activity": "2026-04-23"
   },
   "meta": {
     "template": {
       "generator": "github-models-ai",
       "template_version": "1.0.0",
-      "generated_at": "2026-04-19T06:12:34Z"
+      "generated_at": "2026-04-23T20:10:45Z"
     },
     "schema": {
       "version": "1.0.0"
     }
-  },
-  "vyges_overlays": [
-    {
-      "path": "vyges-overlays/prim_flash.sv",
-      "replaces": "rtl/prim_flash.sv",
-      "kind": "stub",
-      "reason": "Upstream prim_flash depends on flash_phy_pkg/ast_pkg that are not vendored in non-flash SoC builds. Stub replaces the module with an empty body so elaboration succeeds."
-    },
-    {
-      "path": "vyges-overlays/prim_generic_flash_bank.sv",
-      "replaces": "rtl/prim_generic_flash_bank.sv",
-      "kind": "stub",
-      "reason": "Upstream prim_generic_flash_bank depends on flash_ctrl_top_specific_pkg that is not vendored in non-flash SoC builds. Stub replaces the module with an empty body."
-    }
-  ]
+  }
 }
