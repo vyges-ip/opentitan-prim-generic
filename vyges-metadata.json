@@ -292,5 +292,19 @@
     "schema": {
       "version": "1.0.0"
     }
-  }
+  },
+  "vyges_overlays": [
+    {
+      "path": "vyges-overlays/prim_flash.sv",
+      "replaces": "rtl/prim_flash.sv",
+      "kind": "stub",
+      "reason": "Upstream prim_flash depends on flash_phy_pkg/ast_pkg that are not vendored in non-flash SoC builds. Stub replaces the module with an empty body so elaboration succeeds."
+    },
+    {
+      "path": "vyges-overlays/prim_generic_flash_bank.sv",
+      "replaces": "rtl/prim_generic_flash_bank.sv",
+      "kind": "stub",
+      "reason": "Upstream prim_generic_flash_bank depends on flash_ctrl_top_specific_pkg that is not vendored in non-flash SoC builds. Stub replaces the module with an empty body."
+    }
+  ]
 }
