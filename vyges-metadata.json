@@ -14,7 +14,14 @@
     "digital"
   ],
   "created": "2026-04-23T20:10:45Z",
-  "updated": "2026-04-23T20:10:45Z",
+  "updated": "2026-04-27T20:21:53Z",
+  "vyges_overlays": [
+    {
+      "path": "vyges-overlays/prim_clock_gating.sv",
+      "replaces": "rtl/prim_clock_gating.sv",
+      "reason": "Upstream uses always_latch which Vivado flags as Synth 8-327 (inferred latch). The synth warning gate promotes that code to ERROR. Overlay swaps in BUFGCE under XILINX_FPGA; falls through to the upstream latch for ASIC/sim."
+    }
+  ],
   "source": {
     "type": "git",
     "url": "https://github.com/lowRISC/opentitan",
